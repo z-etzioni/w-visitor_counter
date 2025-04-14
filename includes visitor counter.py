@@ -25,7 +25,7 @@ st.set_page_config(page_title="Econ Salary", page_icon="📈", layout="centered"
 st.title("Predicting Salaries of Economics Professors in the United States")
 
 visits = get_visit_count()
-st.markdown(f"#### 👥 Total Visits: `{visits}`")
+st.markdown(f"#### 👥 Total Visitors: `{visits}`")
 
 # ---------- Custom Styles ----------
 st.markdown("""
