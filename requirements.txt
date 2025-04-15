@@ -1,2 +1,2 @@
-Streamline
-Supabase
+streamline
+supabase
