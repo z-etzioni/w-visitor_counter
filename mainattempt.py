@@ -28,11 +28,7 @@ def compute_y(TPhD, THired, N_pub, N_top5, Tenure, Full, USNews):
         + 0.10954 * Tenure + 0.15688 * Full + 0.041223 * USNews + 0.06979 * (max(USNews - 3, 0))**2
     return int(round(1.029 * math.exp(log_y)))
 
-# ---------- Page Setup ----------
 
-
-visits = get_visit_count()
-st.markdown(f"#### 👥 Total Visitors: `{visits}`")
 
 # ---------- Custom Styles ----------
 st.markdown("""
