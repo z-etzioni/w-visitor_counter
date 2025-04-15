@@ -4,6 +4,9 @@ import requests
 
 from supabase import create_client, Client
 
+st.set_page_config(page_title="Econ Salary", page_icon="📈", layout="centered")
+st.title("Predicting Salaries of Economics Professors in the United States")
+
 SUPABASE_URL = "https://auqqsiljywsnqghtechh.supabase.co"
 SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF1cXFzaWxqeXdzbnFnaHRlY2hoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ3MjEwMzAsImV4cCI6MjA2MDI5NzAzMH0.jaDhkMMokUoBIOep1x2gUvdo5kVNzLcd6P_LZbQm8f4"
 
@@ -26,8 +29,7 @@ def compute_y(TPhD, THired, N_pub, N_top5, Tenure, Full, USNews):
     return int(round(1.029 * math.exp(log_y)))
 
 # ---------- Page Setup ----------
-st.set_page_config(page_title="Econ Salary", page_icon="📈", layout="centered")
-st.title("Predicting Salaries of Economics Professors in the United States")
+
 
 visits = get_visit_count()
 st.markdown(f"#### 👥 Total Visitors: `{visits}`")
