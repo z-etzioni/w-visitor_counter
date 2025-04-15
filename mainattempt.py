@@ -3,7 +3,7 @@ import math
 import requests
 from supabase import create_client, Client
 
-# Must be first Streamlit command
+# ---------- Streamlit Config ----------
 st.set_page_config(page_title="Econ Salary", page_icon="📈", layout="centered")
 
 # ---------- Supabase Setup ----------
@@ -11,14 +11,19 @@ SUPABASE_URL = "https://auqqsiljywsnqghtechh.supabase.co"
 SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF1cXFzaWxqeXdzbnFnaHRlY2hoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ3MjEwMzAsImV4cCI6MjA2MDI5NzAzMH0.jaDhkMMokUoBIOep1x2gUvdo5kVNzLcd6P_LZbQm8f4"
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
-# ---------- Visitor Counter Logic ----------
-if "visited" not in st.session_state:
-    supabase.table("visits").insert({}).execute()
-    st.session_state.visited = True
+# ---------- Visitor Counter (Once Per Session) ----------
+if "already_logged" not in st.session_state:
+    try:
+        supabase.table("visits").insert({}).execute()
+    except Exception as e:
+        st.warning("Visitor logging failed.")
+    st.session_state["already_logged"] = True
 
+# ---------- Get Visitor Count ----------
 res = supabase.table("visits").select("id", count="exact").execute()
 visits = res.count
 
+# ---------- Title + Visitor Count ----------
 st.title("Predicting Salaries of Economics Professors in the United States")
 st.markdown(f"#### 👥 Total Visitors: `{visits}`")
 
