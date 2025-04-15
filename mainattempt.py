@@ -2,16 +2,21 @@ import streamlit as st
 import math
 import requests
 
+from supabase import create_client, Client
+
+SUPABASE_URL = "https://auqqsiljywsnqghtechh.supabase.co"
+SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF1cXFzaWxqeXdzbnFnaHRlY2hoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ3MjEwMzAsImV4cCI6MjA2MDI5NzAzMH0.jaDhkMMokUoBIOep1x2gUvdo5kVNzLcd6P_LZbQm8f4"
+
+supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
+
+supabase.table("visits").insert({}).execute()
+
+res = supabase.table("visits").select("id", count="exact").execute()
+visits = res.count
+
+
 # ---------- CountAPI Total Visit Counter ----------
-def get_visit_count():
-    try:
-        response = requests.get("https://api.countapi.xyz/hit/econ-salary-app/visits")
-        if response.status_code == 200:
-            return response.json().get("value", "N/A")
-        else:
-            return "Error"
-    except:
-        return "Error"
+st.markdown(f"#### 👥 Total Visitors: `{visits}`")
 
 # ---------- Salary Prediction Function ----------
 def compute_y(TPhD, THired, N_pub, N_top5, Tenure, Full, USNews):
